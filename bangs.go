@@ -1,5 +1,6 @@
 package main
 
+//Bang struct, must escape %
 type Bang struct {
 	searchString string
 	acronym      string

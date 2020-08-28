@@ -19,9 +19,7 @@ var (
 func main() {
 	flag.Parse()
 	http.HandleFunc("/search", search)
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "index.html")
-	})
+	http.Handle("/", http.FileServer(http.Dir("public")))
 	log.Println("Listening on", *addr)
 	http.ListenAndServe(*addr, nil)
 }
@@ -61,8 +59,7 @@ func search(w http.ResponseWriter, r *http.Request) {
 
 	for _, bang := range bangs {
 		if bang.acronym == acronym {
-			redirectUrl := fmt.Sprintf(bang.searchString, url.QueryEscape(search))
-			http.Redirect(w, r, redirectUrl, http.StatusFound)
+			http.Redirect(w, r, fmt.Sprintf(bang.searchString, url.QueryEscape(search)), http.StatusFound)
 			return
 		}
 	}

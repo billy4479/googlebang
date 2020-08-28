@@ -1,0 +1,10 @@
+#container{
+    display: grid;
+    height: 100%;
+}
+
+#container form{
+    margin: auto;
+    padding: 5em;
+}
+
